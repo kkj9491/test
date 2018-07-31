@@ -14,8 +14,24 @@
 		VALUES (BRDNO_SEQ.NEXTVAL, #{brdtitle}, #{brdwriter}, #{brdmemo}, SYSDATE )
 	</insert>
 
-	<update id="">
-	
+	<update id="updateBoard1" parameterType="web.board1.boardVO">
+		UPDATE TBL_BOARD
+		   SET BRDTITLE=#{brdtitle},
+		       BRDWRITER=#{brdwriter},
+		       BRDMEMO=#{brdmemo}
+		 WHERE BRDNO=#{brdno}	
 	</update>
+	
+	<select id="selectBoard1ONE" parameterType="String" resultType="web.board1.boardVO">
+		SELECT BRDNO, BRDTITLE, BRDWRITER, BRDMEMO, BRDDATE
+		  FROM TBL_BOARD
+		 WHERE BRDNO=#{brdno}	
+	</select>
+	
+	<delete id="deleteBoard1One" parameterType="String">
+		DELETE
+		  FROM TBL_BOARD
+		 WHERE BRDNO=#{brdno}		 
+	</delete>
 
 </mapper>

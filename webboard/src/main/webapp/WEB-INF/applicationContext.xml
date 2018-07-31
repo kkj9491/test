@@ -40,3 +40,11 @@
         <bean id="txManager" class="org.springframwork.jdbc.datasource.DataSourceTransactionManager">
         	<property name="dataSource" ref="dataSource" />
         </bean>
+        
+        <tx:advice id="txAdvice" transaction-manager="txManager">
+        	<tx:attributes>
+        		<tx:method name="*" rollback-for="Exception"/>
+        	</tx:attributes>
+        </tx:advice>
+        
+</beans>
