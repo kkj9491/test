@@ -1,6 +1,7 @@
-package model;
+package web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDao;
+import model.User;
 
 @WebServlet("/Login")
 public class LoginController extends HttpServlet {
@@ -26,6 +28,8 @@ public class LoginController extends HttpServlet {
 		String orgPath = request.getParameter("orgReqPath");
 		
 		UserDao dao = new UserDao();
+		
+		User user = dao.authenticateUser(id, pw);
 	}
 
 }

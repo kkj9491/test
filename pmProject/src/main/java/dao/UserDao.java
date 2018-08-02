@@ -2,7 +2,11 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import model.User;
+
 
 public class UserDao {
 	private Connection conn;
@@ -23,4 +27,13 @@ public class UserDao {
 		}		
 		return null;
 	}	
+	
+	public boolean addUser(User user) {
+		Connection conn = getConnection();
+		PreparedStatement ps = null;
+		int result;
+		
+		
+		
+	}
 }
