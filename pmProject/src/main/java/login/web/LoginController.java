@@ -1,4 +1,4 @@
-package web;
+package login.web;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
-import model.User;
+import login.dao.UserDao;
+import login.model.User;
 
 @WebServlet("/Login")
 public class LoginController extends HttpServlet {

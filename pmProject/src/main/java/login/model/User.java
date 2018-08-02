@@ -1,4 +1,4 @@
-package model;
+package login.model;
 
 import java.sql.Date;
 
