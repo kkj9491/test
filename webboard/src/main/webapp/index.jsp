@@ -13,6 +13,7 @@
 <a href="http://localhost:8082/board/board8List">게시판 8</a><br/>
 <a href="http://localhost:8082/board/board9List">게시판 9</a><br/>
 <a href="http://localhost:8082/board/boardGroupList">게시판 9: 그룹</a><br/>
+연습으로 올려봅시다.
 </body>
 </html>
 
