@@ -3,12 +3,16 @@ package login.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import login.model.User;
+import login.sec.PasswordAuthentication;
 
 
 public class UserDao {
+	// 입력테이블명은 todo_member로 작성함
+	
 	private Connection conn;
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "ORA_USER";
@@ -33,7 +37,160 @@ public class UserDao {
 		PreparedStatement ps = null;
 		int result;
 		
+		if (conn != null && user != null) {
+			String sql = "insert into todo_member (id, pw, name, dob, emial, country) " +
+						"values (?, ?, ?, ?, ?, ?)";
+	
+			
+			try {
+				PasswordAuthentication passAuth = new PasswordAuthentication();
+				
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, user.getId());
+				ps.setString(2, passAuth.hash(user.getPw().toCharArray()));
+				ps.setString(3, user.getName());
+				ps.setDate(4, user.getDob());
+				ps.setString(5, user.getEmail());
+				ps.setString(6, user.getCountry().name());
+				
+				result = ps.executeUpdate();
+				
+				if (result == 0) {
+					return false;					
+				} else {
+					return true;
+				}				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
+		return false;		
+	}	
+	
+	public User authenticateUser(String id, String pw) {
+		Connection conn = getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		if (conn != null) {
+			String sql = "select id, pw, name from hd_user where id=?";
+						
+			try {
+				PasswordAuthentication passAuth = new PasswordAuthentication();
+				
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);
+				
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					if(passAuth.authenticate(pw.toCharArray(), rs.getString(2))) {
+						String name = rs.getString(3);
+						User user = new User();
+						user.setId(id);
+						user.setPw(pw);
+						user.setName(name);
+						
+						return user;
+					} else {
+						return null;
+					}
+					
+				} else {
+					return null;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+				}
+				
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
+				}
+				
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
 		
 	}
+	
+	/*return : 1(아이디존재), 0(존재안함), -1(실행오류)*/
+	public int existUserId(String id) {
+		Connection conn = getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		if (conn != null) {
+			String sql = "select * from todo_member where id=?";
+			
+			try {
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					return 1;
+				} else {
+					return 0;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				if (ps != null) {					
+					try {
+						ps.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+			}
+			
+		}
+		return -1;
+	}
+	
+	// getProfile은 필요없을듯 하여 일단 패스
+	
 }
