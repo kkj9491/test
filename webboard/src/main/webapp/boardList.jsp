@@ -46,5 +46,6 @@
 	conn.close();
 %>
 			</tbody>
-</body>
+		</table>
+	</body>
 </html>

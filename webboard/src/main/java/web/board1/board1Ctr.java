@@ -17,7 +17,7 @@ public class board1Ctr {
 	private board1Svc boardSvc;
 	
 	
-	// 리스트작성   기본게시판 리스트부터 읽으면서 이해하기
+	// 리스트작성 
 	@RequestMapping(value = "/board1List")
 	public String boardList(ModelMap modelMap) throws Exception{
 		List<?> listview = boardSvc.selectBoardList();

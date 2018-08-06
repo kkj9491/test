@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" url="http://java.sun.com/JSP/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <body>
 
 	<form name="form1" action="board1Save">
-		<table board="1" style="width:600px">
+		<table border="1" style="width:600px">
 			<caption>게시판</caption>
 			<colgroup>
 				<col width='15%' />
@@ -32,7 +33,7 @@
 				</tr>	
 			</tbody>
 		</table>
-		<a href="#" onclick="forma1.submit()"> 저장</a>	
+		<a href="#" onclick="form1.submit()"> 저장</a>	
 	</form>
 
 </body>
