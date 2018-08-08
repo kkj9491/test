@@ -34,7 +34,7 @@ public class board1Ctr {
 	}
 	
 	@RequestMapping(value = "/board1Save")
-	public String boardSave(@ModelAttribute boardVO boardInfo) throws Exception {
+	public String boardSave(@ModelAttribute boardVO boardInfo)throws Exception {
 		
 		boardSvc.insertBoard(boardInfo);
 		

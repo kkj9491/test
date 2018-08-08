@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=uft-8" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ page import = "java.sql.*" %>
 <!DOCTYPE html>
 <html>
@@ -21,15 +21,22 @@
 			</thead>
 			<tbody>
 <%
-	Class.forName("oracle.jdbc.driver.OracleDriver");
-	String url = "jdbc:oracle:thin:@localhost:1521:xe/board";
-	String id = "ORA_USER";
-	String pw = "1111";
+/* 	Class.forName("oracle.jdbc.driver.OracleDriver");
+	String url = "jdbc:oracle:thin:@localhost:1521:xe/webboard";
+	String id = "mulboard";
+	String pw = "1234";
 	Connection conn = DriverManager.getConnection(url, id, pw);
-	Statement stmt = conn.createStatement();
+	Statement stmt = conn.createStatement(); */
 	
-	String query = "SELECT BRDNO, BRDTITLE, BRDWRITER, TO_CHAR(BRDDATE, 'yyyy-mm-dd') BRDDATE"
-					+ "FROM TBL_BOARD";
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	String ID = "mulboard"; 
+	String PW = "1234";
+	Connection conn=DriverManager.getConnection(URL, ID, PW);
+	Statement stmt=conn.createStatement();
+	
+	String query = " SELECT BRDNO, BRDTITLE, BRDWRITER, TO_CHAR(BRDDATE, 'YYYY-MM-DD') BRDDATE " +
+				   " FROM TBL_BOARD" ;	
 	ResultSet rs = stmt.executeQuery(query);
 	
 	while(rs.next()){

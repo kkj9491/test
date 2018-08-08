@@ -9,7 +9,7 @@
 <title>board1</title>
 </head>
 <body>
-	<a href="board1For">글쓰기</a>
+	<a href="board1Form">글쓰기</a>
 
 	<table border="1" style="width:600px">
 		<caption>게시판</caption>
